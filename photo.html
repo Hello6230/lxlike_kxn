@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>照片墙 | 李鑫 & 康晓楠</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        pinkMain: '#F8D7E2',
+        pinkDeep: '#E8A8C0',
+        pinkLight: '#FFF5F9',
+        gold: '#D4AF94',
+        textSoft: '#724A5C'
+      },
+      fontFamily: {
+        love: ['"Noto Serif SC"', 'serif'],
+      },
+    }
+  }
+</script>
+
+<style type="text/tailwindcss">
+@layer utilities {
+
+  .glass {
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.8);
+  }
+
+  .photo-hover {
+    transition: all .35s ease;
+  }
+  .photo-hover:hover {
+    transform: scale(1.05) rotate(-0.5deg);
+    box-shadow: 0 18px 40px rgba(232,168,192,0.35);
+  }
+
+  .float-up {
+    animation: float 4s infinite ease-in-out;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .star {
+    position:absolute;
+    background:#fff;
+    border-radius:50%;
+    opacity:.7;
+    animation: twinkle 3s infinite;
+  }
+
+  @keyframes twinkle {
+    0%,100%{opacity:.2}
+    50%{opacity:.9}
+  }
+
+  /* ===== 放大层（修复版） ===== */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox img,
+  .lightbox video {
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+    border-radius: 12px;
+    object-fit: contain;
+  }
+}
+
+body {
+  background: linear-gradient(135deg,#FFF5F9,#F8D7E2,#F9E4ED);
+  background-attachment: fixed;
+}
+</style>
+
+</head>
+
+<body class="min-h-screen font-love text-textSoft overflow-x-hidden">
+
+<!-- 顶部导航 -->
+<nav class="fixed top-0 left-0 right-0 z-50 glass h-[65px] flex items-center justify-end px-6">
+  <div class="flex gap-4">
+    <a href="index.html" class="px-4 py-2 rounded-full hover:bg-pinkMain/60">
+      <i class="fa fa-home mr-1"></i>首页
+    </a>
+    <a href="photo.html" class="px-4 py-2 rounded-full bg-pinkMain/70 font-bold">
+      <i class="fa fa-picture-o mr-1"></i>照片墙
+    </a>
+  </div>
+</nav>
+
+<!-- 星星背景 -->
+<div id="starBox" class="fixed inset-0 pointer-events-none z-0"></div>
+
+<div class="relative z-10 max-w-6xl mx-auto px-4 pt-24 pb-20">
+
+  <!-- 标题 -->
+  <header class="text-center mb-12 float-up">
+    <p class="text-gold tracking-[0.3em] mb-2">OUR MEMORY WALL</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-textSoft">
+      甜蜜照片墙
+    </h1>
+    <p class="mt-3 text-sm text-textSoft/60">记录我们每一瞬心动</p>
+  </header>
+
+  <!-- 照片墙 -->
+  <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+
+    <!-- 视频 -->
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <video class="w-full aspect-[4/3] object-cover cursor-pointer preview-media" muted>
+        <source src="pic/1.mp4" type="video/mp4">
+      </video>
+      <div class="p-3 text-sm"> ☕</div>
+    </div>
+
+    <!-- 图片 -->
+   <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/2.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🌙</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/3.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 💗</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/4.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> ☀️</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/5.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🍢</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/6.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🚆</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/7.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 👀</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/8.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🌆</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/9.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🎐</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/10.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🌸</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/11.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🎞️</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/12.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🥤</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/13.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🎡</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/14.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🎀</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/15.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🍰</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/16.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🌿</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/17.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> ✨</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/18.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 📸</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/19.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🌠</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/20.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🧸</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/21.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 🍃</div>
+    </div>
+    <div class="glass rounded-2xl overflow-hidden photo-hover">
+      <img src="photo_wall/22.jpg" class="w-full aspect-[4/3] object-cover cursor-pointer preview-media">
+      <div class="p-3 text-sm"> 💌</div>
+    </div>
+
+  </section>
+
+  <footer class="text-center mt-16 text-textSoft/60 text-sm">
+    <p>Created with love · 李鑫 & 康晓楠</p>
+  </footer>
+
+</div>
+
+<!-- ===== 放大层（已修复关闭） ===== -->
+<div id="lightbox" class="lightbox">
+
+  <!-- ✔ 右上角关闭按钮（绝对可靠） -->
+  <button
+    onclick="closeLightbox()"
+    class="fixed top-6 right-6 z-[1000] text-white text-4xl font-bold bg-black/40 w-12 h-12 rounded-full flex items-center justify-center hover:bg-black/70">
+    ×
+  </button>
+
+  <img id="lightboxImg" class="hidden">
+  <video id="lightboxVideo" class="hidden" controls></video>
+
+</div>
+
+<script>
+
+// 星星
+function createStars(){
+  const box = document.getElementById('starBox');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.width = Math.random()*3+1+'px';
+    s.style.height = s.style.width;
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.animationDelay = Math.random()*3+'s';
+    box.appendChild(s);
+  }
+}
+createStars();
+
+// ===== 放大逻辑 =====
+const lightbox = document.getElementById('lightbox');
+const imgBox = document.getElementById('lightboxImg');
+const videoBox = document.getElementById('lightboxVideo');
+
+// 打开
+document.querySelectorAll('.preview-media').forEach(el => {
+  el.addEventListener('click', () => {
+
+    lightbox.style.display = 'flex';
+
+    if(el.tagName === 'IMG'){
+      imgBox.src = el.src;
+      imgBox.classList.remove('hidden');
+      videoBox.classList.add('hidden');
+      videoBox.pause();
+    }
+
+    if(el.tagName === 'VIDEO'){
+      videoBox.src = el.querySelector('source').src;
+      videoBox.classList.remove('hidden');
+      imgBox.classList.add('hidden');
+      videoBox.play();
+    }
+
+  });
+});
+
+// 关闭（唯一可靠方式）
+function closeLightbox(){
+  lightbox.style.display = 'none';
+  videoBox.pause();
+}
+
+// 点击黑色遮罩区域关闭弹窗
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {
+    closeLightbox();
+  }
+})
+</script>
+
+</body>
+</html>
